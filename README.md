@@ -1,1 +1,1 @@
-bit-torrent using node
+implementation of bit-torrent protocol using nodejs
