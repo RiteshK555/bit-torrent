@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "bencode": "^2.0.2",
-    "torrent-parser": "^1.2.0"
+    "bencode": "^2.0.2"
   }
 }
