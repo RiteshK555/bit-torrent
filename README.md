@@ -1,7 +1,7 @@
 implementation of bit-torrent client using nodejs
 
 .
-Udp is preferred over tcp cz it has a lot of overhead (encryption,ip address...)
+Udp is preferred over tcp cz tcp has a lot of overhead (encryption,ip address...)
 generally udp is used for streaming. which is what happens here
 
 .
