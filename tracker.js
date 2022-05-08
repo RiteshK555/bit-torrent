@@ -15,9 +15,6 @@ const torrentParser = require('./torrent-parser')
 const util = require('./util.js');
 //util
 
-const bencode = require('bencode');
-//bencode
-
 module.exports.getPeers = (torrent,callback)=>{
     const socket = dgram.createSocket('udp4');
     //socket
@@ -88,9 +85,6 @@ function parseConnResp(resp){
 function buildAnnounceReq(connectionId,torrent,port=80){
     const buf = Buffer.allocUnsafe(98);
     
-    // let parsedTorrent =decodeTorrent(torrent);
-    //decoding torrent file
-    // console.log(parsedTorrent);
 
     //connection id 
     connectionId.copy(buf,0);
@@ -102,7 +96,7 @@ function buildAnnounceReq(connectionId,torrent,port=80){
     crypto.randomBytes(4).copy(buf,12);
 
     //info hash
-    torrent.infoHash(torrent).copy(buf,16);
+    torrentParser.infoHash(torrent).copy(buf,16);
 
     //peer id
     util.genId().copy(buf,36);
@@ -135,5 +129,26 @@ function buildAnnounceReq(connectionId,torrent,port=80){
 }
 
 function parseAnnounceResp(resp){
-     
+    function group(iterable,groupSize){
+        let groups = [];
+        for(let i=0;i<iterable.length;i+=groupSize){
+            groups.push(iterable.slice(i,i+groupSize));
+        }
+        return groups;
+    }
+    return {
+        action :resp.readUInt32BE(0),
+        transactionId: resp.readUInt32BE(4),
+        interval: resp.readUInt32BE(8),
+        leechers: resp.readUInt32BE(12),
+        seeders: resp.readUInt32BE(16),
+        peers:group(resp.slice(20),6).map(address =>{
+            return {
+                //ip address 51.22.22.22 
+                //4 bytes
+                ip: address.slice(0,4).join('.'),
+                port: address.readUInt16BE(4)
+            }
+        })
+    }
 }
