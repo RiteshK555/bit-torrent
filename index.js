@@ -12,7 +12,10 @@ const bencode = require('bencode');
 //torrent files are encoded in bencode format. Here we are decoding the .torrent file
 
 //torrent parser
-const torrent = torrentParser.open('./Jujutsu Kaisen 182 (2022) (Digital).torrent')
+const torrent = torrentParser.open('./Jujutsu Kaisen 182 (2022) (Digital).torrent');
+
+//log
+// console.log(torrentParser.size(torrent)E(4));
 
 tracker.getPeers(torrent,peers =>{
     console.log('list of peers',peers);
