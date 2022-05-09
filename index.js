@@ -2,10 +2,13 @@
 const fs = require('fs');
 
 //import tracker
-const tracker = require('./tracker.js');
+const tracker = require('./src/tracker.js');
 
 //torrent parser
-const torrentParser = require('./torrent-parser.js');
+const torrentParser = require('./src/torrent-parser.js');
+
+//download
+const download = require('./src/download.js');
 
 //bencode is a type of encoding in torrenting
 const bencode = require('bencode');
@@ -16,6 +19,9 @@ const torrent = torrentParser.open('./Jujutsu Kaisen 182 (2022) (Digital).torren
 
 //log
 
-tracker.getPeers(torrent,peers =>{
-    console.log('list of peers',peers.length);
-});
+//peers
+// tracker.getPeers(torrent,peers =>{
+//     console.log('list of peers',peers);
+// });
+
+download(torrent);

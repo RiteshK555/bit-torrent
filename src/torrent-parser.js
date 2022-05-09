@@ -23,7 +23,6 @@ module.exports.size = torrent =>{
 
 module.exports.infoHash = torrent =>{
     //we have to encode before hashing
-    console.log(torrent);
     const info = bencode.encode(torrent.info);
     //returns a buffer of 20 bytes cz its sha1
     return crypto.createHash('sha1').update(info).digest();
