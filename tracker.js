@@ -30,8 +30,8 @@ module.exports.getPeers = (torrent,callback)=>{
         if(respType(response) === 'connect'){
             const connResp = parseConnResp(response);
             //receive and parse connection response
-
-            const announceReq = buildAnnounceReq(connResp.connectionId);
+            const port = urlParser(url).port;
+            const announceReq = buildAnnounceReq(connResp.connectionId,torrent,);
             //send announce request
 
             udpSend(socket,announceReq,url);
@@ -82,7 +82,7 @@ function parseConnResp(resp){
     }
 }
 
-function buildAnnounceReq(connectionId,torrent,port=80){
+function buildAnnounceReq(connectionId,torrent,port){
     const buf = Buffer.allocUnsafe(98);
     
 
