@@ -31,7 +31,7 @@ module.exports.getPeers = (torrent,callback)=>{
             const connResp = parseConnResp(response);
             //receive and parse connection response
             const port = urlParser(url).port;
-            const announceReq = buildAnnounceReq(connResp.connectionId,torrent,);
+            const announceReq = buildAnnounceReq(connResp.connectionId,torrent,port);
             //send announce request
 
             udpSend(socket,announceReq,url);

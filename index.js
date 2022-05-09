@@ -17,5 +17,5 @@ const torrent = torrentParser.open('./Jujutsu Kaisen 182 (2022) (Digital).torren
 //log
 
 tracker.getPeers(torrent,peers =>{
-    console.log('list of peers',peers);
+    console.log('list of peers',peers.length);
 });
