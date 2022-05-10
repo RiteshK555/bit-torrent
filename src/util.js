@@ -3,6 +3,7 @@ const crypto = require('crypto');
 
 let id = null;
 
+//genId
 module.exports.genId = () =>{
     if(id === null){
         id = crypto.randomBytes(20);
@@ -10,4 +11,11 @@ module.exports.genId = () =>{
         //client name and version number
     }
     return id;
+}
+
+//id
+module.exports.id = ()=>{
+    if(id !== null){
+        return id;
+    }
 }
