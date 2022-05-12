@@ -18,10 +18,12 @@ const bencode = require('bencode');
 const torrent = torrentParser.open('./Jujutsu Kaisen 182 (2022) (Digital).torrent');
 
 //log
+console.log(torrent);
+//11020
 
 //tcp 
-const trackerTcp = require('./src/tracker_tcp.js');
-trackerTcp.getPeers(torrent);
+// const trackerTcp = require('./src/tracker_tcp.js');
+// trackerTcp.getPeers(torrent);
 
 //download torrent
-// download(torrent);
+download(torrent);

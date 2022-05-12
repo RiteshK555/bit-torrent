@@ -13,9 +13,3 @@ module.exports.genId = () =>{
     return id;
 }
 
-//id
-module.exports.id = ()=>{
-    if(id !== null){
-        return id;
-    }
-}

@@ -21,9 +21,14 @@ module.exports.size = torrent =>{
     return bignum.toBuffer(size,{size:8});
 }
 
+let savedInfoHash = null;
 module.exports.infoHash = torrent =>{
     //we have to encode before hashing
     const info = bencode.encode(torrent.info);
+
     //returns a buffer of 20 bytes cz its sha1
-    return crypto.createHash('sha1').update(info).digest();
+    if(savedInfoHash === null){
+        savedInfoHash = crypto.createHash('sha1').update(info).digest();
+    } 
+    return savedInfoHash;
 }
