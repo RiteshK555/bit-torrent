@@ -42,7 +42,7 @@ module.exports.buildChoke =()=>{
     buf.writeUInt32BE(1,0);
 
     //id 0
-    buf.writeUInt8BE(0,4);
+    buf.writeUInt8(0,4);
 
     return buf;
 }
@@ -55,7 +55,7 @@ module.exports.buildUnchoke = ()=>{
     buf.writeUInt32BE(1,0);
     
     //id 1
-    buf.writeUInt8BE(1,4);
+    buf.writeUInt8(1,4);
 
     return buf;
 }
@@ -68,7 +68,7 @@ module.exports.buildIntrested = ()=>{
     buf.writeUInt32BE(1,0);
 
     //id 2
-    buf.writeUInt8BE(2,4);
+    buf.writeUInt8(2,4);
 
     return buf;
 }
@@ -81,7 +81,7 @@ module.exports.buildUnintrested =() =>{
     buf.writeUInt32BE(1,0);
 
     //id 3
-    buf.writeUInt8BE(3,4);
+    buf.writeUInt8(3,4);
 
     return buf;
 }
@@ -94,7 +94,7 @@ module.exports.buildHave =(payload)=>{
     buf.writeUInt32BE(5,0);
 
     //id 4
-    buf.writeUInt8BE(4,4);
+    buf.writeUInt8(4,4);
 
     //payload
     //here the payload is piece index
@@ -111,7 +111,7 @@ module.exports.buildBitfeild = (payload)=>{
     buf.writeUInt32BE(payload.length+1,0);
 
     //id 5
-    buf.writeUInt8BE(5,4);
+    buf.writeUInt8(5,4);
 
     //payload
     payload.copy(buf,5);
@@ -128,7 +128,7 @@ module.exports.buildRequest= (payload)=>{
     buf.writeUInt32BE(13,0);
 
     //id 6
-    buf.writeUInt8BE(6,4);
+    buf.writeUInt8(6,4);
 
     //index
     buf.writeUInt32BE(payload.index,5);
@@ -150,7 +150,7 @@ module.exports.buildPiece = (payload)=>{
     buf.writeUInt32BE(payload.block.length+9,0);
 
     //id 7
-    buf.writeUInt8BE(7,4);
+    buf.writeUInt8(7,4);
 
     //index
     buf.writeUInt32BE(payload.index,5);
@@ -172,7 +172,7 @@ module.exports.buildCancel = payload =>{
     buf.writeUInt32BE(13,0);
 
     //id 8
-    buf.writeUInt8BE(8,4);
+    buf.writeUInt8(8,4);
 
     //index
     buf.writeUInt32BE(payload.index,5);
@@ -194,7 +194,7 @@ module.exports.buildPort = (payload)=>{
     buf.writeUInt32BE(3,0);
 
     //id
-    buf.writeUInt8BE(9,4);
+    buf.writeUInt8(9,4);
 
     //listen port
     buf.writeUInt16BE(payload,5);
