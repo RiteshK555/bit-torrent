@@ -1,4 +1,4 @@
-moduel.exports = class{
+module.exports = class{
     constructor(size){
         this.requested = new Array(size).fill(false);
         this.received = new Array(size).fill(false);
