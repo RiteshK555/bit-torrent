@@ -10,9 +10,7 @@ implementation of bit-torrent client using nodejs
 
 5.tracker is exodus.desync.com
 
-6.
-
-TCP:
+6.TCP:
 
 Send: AA BBBB CCC DDDDDD E         Recv: A ABB B BCC CDDD DDDE
 
