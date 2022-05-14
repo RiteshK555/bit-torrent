@@ -25,3 +25,7 @@ Send: AA BBBB CCC DDDDDD E         Recv: CCC AA E
 7.file size 9027458.
 
 8.generally servers use 16kb(16384B) for piece size.
+
+9.Initial client connection state is "choked" and "not intrested".
+
+10.The info in the torrent file contains hashes of all pieces concatinated (20bytes each).
