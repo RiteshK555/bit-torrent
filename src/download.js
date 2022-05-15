@@ -13,12 +13,15 @@ const message = require('./message.js');
 //pieces 
 const Pieces = require('./pieces.js');
 
+//queue
+const Queue = require('./queue.js');
+
 //socket 
 module.exports = torrent =>{
     //for each peer
-    const requested = [];
+    // const requested = [];
     tracker.getPeers(torrent,peers =>{
-        const pieces = new Pieces(torrent.info.pieces.length/20);
+        const pieces = new Pieces(torrent);
         peers.forEach(peer => {
             download(peer,torrent,pieces);
         });
@@ -30,10 +33,7 @@ function download(peer,torrent,pieces){
     socket.on('connect',()=>{
         socket.write(message.buildHandshake(torrent));
     });
-    const queue = {
-        choked:true,
-        queue:[]
-    };
+    const queue = new Queue(torrent);
     onWholeMsg(socket,msg=>msgHandler(msg,socket,requested,queue));
 }
 
@@ -64,25 +64,25 @@ function haveHandler(payload,socket,requested,queue){
         socket.write(message.buildRequest());
         requested[pieceIndex] = true;
     }
-    queue.push(pieceIndex);
-    if(queue.length === 1){
+    queue.queue(pieceIndex);
+    if(queue.length() === 1){
         requestPiece(socket,requested)
     }
     
 }
 function bitfieldHandler(payload){}
 function pieceHandler(payload,socket,requested,queue){
-    queue.shift();
+    queue.deque();
     requestPiece(socket,requested,queue);
 }
 
 function requestPiece(socket,pieces,queue){
     if(queue.choked)return null;
-    while(queue.queue.length){
-        const pieceIndex = queue.shift();
-        if(pieces.needed(pieceIndex)){
-            socket.write(message.buildRequest(pieceIndex));
-            pieces.addRequested(pieceIndex);
+    while(queue.length()){
+        const pieceBlock = queue.deque();
+        if(pieces.needed(pieceBlock)){
+            socket.write(message.buildRequest(pieceBlock));
+            pieces.requested(pieceBlock);
             break;
         }
     }
