@@ -29,3 +29,7 @@ Send: AA BBBB CCC DDDDDD E         Recv: CCC AA E
 9.Initial client connection state is "choked" and "not intrested".
 
 10.The info in the torrent file contains hashes of all pieces concatinated (20bytes each).
+
+11.Queue
+We don't know the bandwidth of the peers so for downloading pieces as fast as possible we first send piece req to each of the peers and then we send another req if and only if the peer sends response. In this way we can easily download as fast as possible with little implementation.
+
