@@ -25,4 +25,4 @@ console.log(torrent);
 // trackerTcp.getPeers(torrent);
 
 //download torrent
-download(torrent);
+download(torrent,torrent.info.name);
