@@ -19,7 +19,7 @@ module.exports.getPeers = (torrent,callback)=>{
     const socket = dgram.createSocket('udp4');
     //socket
 
-    const url = torrent["announce-list"][4].toString('utf8');
+    const url = torrent["announce-list"][2].toString('utf8');
     //tracker url
     // console.log(url);
     udpSend(socket,buildConnReq(),url);
@@ -41,6 +41,8 @@ module.exports.getPeers = (torrent,callback)=>{
             console.log("announce");
             const announceResp = parseAnnounceResp(response);
             //parse announce response
+            socket.close();
+            console.log("socket closed");
             callback(announceResp.peers);
         }
     });

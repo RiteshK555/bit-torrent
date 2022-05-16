@@ -16,6 +16,7 @@ module.exports = class{
             };
             this._queue.push(pieceBlock);
         }
+        // console.log(this._queue.length);
     };
     deque(){
         return this._queue.shift();

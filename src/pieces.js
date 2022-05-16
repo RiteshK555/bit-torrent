@@ -26,6 +26,9 @@ module.exports = class{
         return !this._requested[pieceBlock.index][blockIndex];
     }
     isDone(){
-        return this._recieved.every(blocks=>blocks.every(i => i));
+        return this._recieved.every(blocks=>blocks.every(i => i === true));
+    }
+    sz(){
+        return this._requested.length;
     }
 }

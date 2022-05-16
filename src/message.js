@@ -4,6 +4,9 @@ const Buffer = require('buffer').Buffer;
 //torrentParser
 const torrentParser = require('./torrent-parser');
 
+//util
+const util = require('./util');
+
 module.exports.buildHandshake = torrent =>{
     //buffer
     const buf = Buffer.alloc(68);
@@ -21,10 +24,10 @@ module.exports.buildHandshake = torrent =>{
 
     //info hash
     torrentParser.infoHash(torrent).copy(buf,28);
-
     //peer id
-    buf.write(util.genId(),48);
-    
+    //buf.write(util.genId(),48);
+    util.genId().copy(buf,48);
+
     return buf;
 }
 
@@ -207,18 +210,22 @@ module.exports.parse = (msg)=>{
     const id = msg.length > 4 ? msg.readInt8(4) : null;
     
     let payload_ = msg.length > 5 ? msg.slice(5) : null;
-
+    
+    let payload__ = null;
+    if(id === 5 || id === 4){
+        payload__ = msg.slice(5);
+    }
     if(id === 6 || id === 7 || id === 8){
         const rest = payload_.slice(8);
-        payload = {
+        payload__ = {
             index: payload_.readUInt32BE(0),
             begin: payload_.readUInt32BE(4),
         };
-        payload[id===7 ? 'block' : 'length'] = rest;
+        payload__[id===7 ? 'block' : 'length'] = rest;
     }
     return {
         size: msg.readUInt32BE(0),
         id: id,
-        payload: payload
+        payload: payload__
     }
 }
