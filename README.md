@@ -30,3 +30,4 @@ Send: AA BBBB CCC DDDDDD E         Recv: CCC AA E
 
 We don't know the bandwidth of the peers so for downloading pieces as fast as possible we first send piece req to each of the peers and then we send another req if and only if the peer sends response. In this way we can easily download as fast as possible with little implementation.
 
+11.downloaded file : Jujutsu Kaisen 182 (2022) (Digital).cbz
